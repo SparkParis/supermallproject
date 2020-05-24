@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img v-lazy="showImage" :key="showImage" @load="imageLoage" />
+    <img v-lazy="showImage" :key="showImage" @load="imageLoad" />
     <!-- @onload图片加载完成调用的函数 -->
     <div class="goods-info">
       <p>{{item.title}}</p>
@@ -27,7 +27,7 @@ export default {
     }
   },
   methods: {
-    imageLoage() {
+    imageLoad() {
       // 事件总线发送数据
       this.$bus.$emit("itemImageLoad");
     },

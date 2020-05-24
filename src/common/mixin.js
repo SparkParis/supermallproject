@@ -1,6 +1,6 @@
 import { debounce } from './utils'
 import BackTop from "components/content/backtop/BackTop";
-import { TOP_POSITION } from './const'
+import { TOP_POSITION, POP, NEW, SELL } from './const'
 
 export const imageLoadMixin = {
   data() {
@@ -39,5 +39,14 @@ export const backToMixin = {
       this.$refs.scroll.scrollTo(0, 0, 500);
     }
   }
+}
+
+// tabControlMixin
+export const tabControlMixin = {
+  data() {
+    return {
+      currentType: POP
+    }
+  },
 
 }

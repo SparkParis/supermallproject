@@ -12,9 +12,9 @@
       <goods-list :goods="recommendList" ref="recommendInfo" />
     </scroll>
     <!-- 底部工具栏的使用   -->
-    <detail-bottom-bar />
+    <detail-bottom-bar @addCartClick="addCartClick" />
     <!-- 回到顶部 -->
-    <back-top @click.native="topBackClick" v-show="isShowTop" />
+    <back-top @click.native="topBackClick" v-show="isShowTop" @addCartClick="addCartClick" />
   </div>
 </template>
 
@@ -31,6 +31,9 @@ import DetailCommentInfo from "./childcomps/DetailCommentInfo";
 import GoodsList from "components/content/goods/GoodList";
 import DetailBottomBar from "./childcomps/DetailBottomBar";
 import BackTop from "components/content/backtop/BackTop";
+
+// 调入actions的辅助函数mapActions直接使用action中的方法
+import { mapActions } from "vuex";
 
 import { imageLoadMixin, backToMixin } from "common/mixin";
 
@@ -73,6 +76,9 @@ export default {
   },
   mixins: [imageLoadMixin, backToMixin],
   methods: {
+    // actions中的方法
+    ...mapActions(["addToCart"]),
+
     imageLoad() {
       // 图片加载完成之后重新加载scroll
       // this.$refs.scroll.refresh();
@@ -124,6 +130,25 @@ export default {
       }
       // 传值给子组件
       this.$refs.nav.currentIndex = this.currentIndex;
+    },
+
+    // 加入购物车点事件
+    addCartClick() {
+      // 将商品信息添加到购物车中
+      const obj = {};
+      obj.iid = this.iid;
+      obj.imgUrl = this.topImages[0];
+      obj.title = this.goods.title;
+      obj.desc = this.goods.desc;
+      obj.price = this.goods.lowNowPrice;
+
+      // 加入store,发送请求,注意这里返回的是promise对象,可以直接通过then
+      // 1.写法1
+      // this.$store.dispatch("addToCart", obj);
+      // 2.写法2(mapActions)
+      this.addToCart(obj).then(res => {
+        this.$toast.show(res);
+      });
     },
 
     // networks详情获取

@@ -40,7 +40,8 @@ import Scroll from "components/common/scroll/Scroll";
 import BackTop from "components/content/backtop/BackTop";
 
 import { debounce } from "common/utils";
-import { imageLoadMixin, backToMixin } from "common/mixin";
+import { imageLoadMixin, backToMixin, tabControlMixin } from "common/mixin";
+import { POP, NEW, SELL } from "common/const";
 
 import HomeSwiper from "views/home/childcomps/HomeSwiper";
 import HomeRecommend from "views/home/childcomps/HomeRecommend";
@@ -62,7 +63,8 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
       },
-      currentType: "pop",
+      // currentType: POP,mixin中混入
+
       // isShowTop: false,
       // 获取当前tabControl的offsetTop
       tabControlOffset: 0,
@@ -89,9 +91,9 @@ export default {
 
     this.getHomeMultidata();
     // 2.获取goods
-    this.getHomeGoods("pop");
-    this.getHomeGoods("new");
-    this.getHomeGoods("sell");
+    this.getHomeGoods(POP);
+    this.getHomeGoods(NEW);
+    this.getHomeGoods(SELL);
   },
 
   computed: {
@@ -99,7 +101,7 @@ export default {
       return this.goods[this.currentType].list;
     }
   },
-  mixins: [imageLoadMixin, backToMixin],
+  mixins: [imageLoadMixin, backToMixin, tabControlMixin],
   mounted() {
     // 3.图片加载完成就刷新scroll,保证最新的scrollHeight,一定要在mounted挂载之后在获取组件,否则会出现组件不存在的情况
     // 这里需要设置防抖操作,在每个图片加载完都请求刷新服务器压力大,设置防抖(定时器),减少刷新次数
@@ -113,17 +115,17 @@ export default {
     /*
     事件监听
     */
-    //  tanControl点击事件
+    //  tanControl点击事件,,mixin混入
     tabClick(index) {
       switch (index) {
         case 0:
-          this.currentType = "pop";
+          this.currentType = POP;
           break;
         case 1:
-          this.currentType = "new";
+          this.currentType = NEW;
           break;
         case 2:
-          this.currentType = "sell";
+          this.currentType = SELL;
           break;
       }
       // 确保点击的两个的tabControl的选项是一致的

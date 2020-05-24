@@ -36,7 +36,7 @@ export default {
   width: 60px;
 }
 .center {
-  /* 设置宽度之后就可以,其与部分shezhiflex */
+  /* 设置宽度之后就可以,其与部分设置flex */
   flex: 1;
 }
 </style>
