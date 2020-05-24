@@ -30,7 +30,11 @@ export default {
       }
     },
     calcClick() {
-      if (!this.isSelect) {
+      if (
+        this.cartList.filter(item => {
+          return item.checked;
+        }).length === 0
+      ) {
         this.$toast.show("请选择购买的商品 ");
       }
     }

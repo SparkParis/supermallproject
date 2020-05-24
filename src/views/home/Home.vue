@@ -181,7 +181,7 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
         // 加载完成之后需要finishedPullUp,不然后续不会再加载
-        this.$refs.scroll.finishPullUp();
+        this.$refs.scroll && this.$refs.scroll.finishPullUp();
       });
     }
   },
