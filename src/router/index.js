@@ -39,8 +39,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes,
-  mode: 'history'
+  mode: 'history',
+  base: '/mall',
+  routes
 })
 
 export default router

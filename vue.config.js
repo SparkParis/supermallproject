@@ -1,4 +1,6 @@
 module.exports = {
+  publicPath: `/mall`,
+  outputDir: `dist/mall`,
   configureWebpack: {
     resolve: {
       alias: {
